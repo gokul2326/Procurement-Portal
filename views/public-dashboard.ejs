@@ -1,0 +1,95 @@
+<%- include('partials/header') %>
+<div class="space-y-8">
+  <!-- Search & Location Filter Banner -->
+  <div class="bg-gradient-to-r from-indigo-900 to-blue-800 text-white rounded-2xl p-6 sm:p-10 shadow-lg">
+    <h1 class="text-3xl font-extrabold mb-2" data-i18n="search_heading">
+      Find Active Public Works in Your Locality
+    </h1>
+    <p class="text-indigo-200 text-sm mb-6">
+      Explore transparent government tenders currently under execution with allocated budgets and responsible contractor details.
+    </p>
+
+    <form method="GET" action="/" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 bg-white/10 backdrop-blur-md p-4 rounded-xl">
+      <div>
+        <label class="block text-xs uppercase text-indigo-200 mb-1" data-i18n="state">State</label>
+        <input type="text" name="state" value="<%= filters.state || '' %>" placeholder="e.g. Karnataka" class="w-full px-3 py-2 rounded-lg text-slate-800 text-sm focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-xs uppercase text-indigo-200 mb-1" data-i18n="district">District</label>
+        <input type="text" name="district" value="<%= filters.district || '' %>" placeholder="e.g. Bengaluru" class="w-full px-3 py-2 rounded-lg text-slate-800 text-sm focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-xs uppercase text-indigo-200 mb-1" data-i18n="taluk">Taluk</label>
+        <input type="text" name="taluk" value="<%= filters.taluk || '' %>" placeholder="e.g. North" class="w-full px-3 py-2 rounded-lg text-slate-800 text-sm focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-xs uppercase text-indigo-200 mb-1" data-i18n="village">Village</label>
+        <input type="text" name="village" value="<%= filters.village || '' %>" placeholder="e.g. Whitefield" class="w-full px-3 py-2 rounded-lg text-slate-800 text-sm focus:outline-none">
+      </div>
+      <div class="flex items-end">
+        <button type="submit" class="w-full py-2 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-lg transition" data-i18n="search_btn">
+          <i class="fa-solid fa-magnifying-glass mr-1"></i> Search Works
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Active Works List -->
+  <div>
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold text-slate-800">
+        Ongoing Government Projects (<%= runningTenders.length %>)
+      </h2>
+      <a href="/" class="text-sm text-indigo-600 hover:underline">Reset Filters</a>
+    </div>
+
+    <% if (runningTenders.length === 0) { %>
+      <div class="bg-white rounded-xl p-10 text-center border border-slate-200">
+        <i class="fa-solid fa-folder-open text-4xl text-slate-400 mb-2"></i>
+        <p class="text-slate-600 font-medium">No awarded tenders found matching your location search.</p>
+      </div>
+    <% } else { %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% runningTenders.forEach(tender => { %>
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800">
+                  <%= tender.tenderId %>
+                </span>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                  Assigned / Running
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-slate-900 mb-1"><%= tender.title %></h3>
+              <p class="text-slate-600 text-sm mb-3 line-clamp-2"><%= tender.description %></p>
+              
+              <div class="text-xs text-slate-500 space-y-1 mb-4 bg-slate-50 p-3 rounded-lg border">
+                <div><i class="fa-solid fa-location-dot text-indigo-500 mr-1.5"></i> <%= tender.location.taluk %>, <%= tender.location.district %>, <%= tender.location.state %></div>
+                <div><i class="fa-solid fa-indian-rupee-sign text-emerald-600 mr-1.5"></i> <strong data-i18n="budget">Sanctioned Budget</strong>: INR <%= tender.budget.toLocaleString('en-IN') %></div>
+              </div>
+            </div>
+
+            <div class="border-t pt-3">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1" data-i18n="tender_contractor">Contractor Working:</span>
+              <% if (tender.assignedBidder) { %>
+                <div class="flex items-center space-x-2">
+                  <div class="w-8 h-8 rounded-full bg-indigo-700 text-white flex items-center justify-center font-bold text-xs">
+                    <%= tender.assignedBidder.name.charAt(0) %>
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold text-slate-800"><%= tender.assignedBidder.companyDetails.companyName || tender.assignedBidder.name %></p>
+                    <p class="text-[11px] text-slate-500">Reg: <%= tender.assignedBidder.companyDetails.registrationNumber || 'Verified' %></p>
+                  </div>
+                </div>
+              <% } else { %>
+                <p class="text-xs text-slate-400">Information being finalized</p>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</div>
+<%- include('partials/footer') %>

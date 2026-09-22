@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+<div class="flex justify-center items-center py-8">
+  <div class="w-full max-w-xl bg-white rounded-xl shadow-md border border-slate-200 p-8">
+    <div class="text-center mb-6">
+      <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-3">
+        <i class="fa-solid fa-id-card text-xl"></i>
+      </div>
+      <h2 class="text-2xl font-bold text-slate-800" data-i18n="nav_register">Register For Access</h2>
+      <p class="text-xs text-amber-700 bg-amber-50 p-2 rounded-md border border-amber-200 mt-2">
+        <i class="fa-solid fa-shield-halved mr-1"></i> Notice: All newly registered accounts are reviewed and authorized by a Government Official before activation.
+      </p>
+    </div>
+
+    <form action="/register" method="POST" class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+          <input type="text" name="name" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Rajesh Kumar">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+          <input type="email" name="email" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="rajesh@company.com">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+          <input type="password" name="password" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Minimum 6 characters">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Account Role</label>
+          <select name="role" id="roleSelect" onchange="toggleBidderFields(this.value)" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+            <option value="bidder">Bidder / Contracting Company</option>
+            <option value="official">Government Official</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Specific Bidder Fields -->
+      <div id="bidderFields" class="space-y-4 border-t pt-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Company / Entity Name</label>
+            <input type="text" name="companyName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Apex Infra Ltd">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">GST / Business Registration ID</label>
+            <input type="text" name="registrationNumber" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="GST29AABCU9603R1ZM">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Tender Category Focus</label>
+          <input type="text" name="category" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="e.g. Civil Infrastructure, Water Supply, Electrical">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Summary of Previous Completed Works</label>
+          <textarea name="previousWorks" rows="2" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Details of prior completed government or private contracts"></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm transition">
+        Submit Application for Review
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function toggleBidderFields(role) {
+    const fields = document.getElementById('bidderFields');
+    if (role === 'official') {
+      fields.classList.add('hidden');
+    } else {
+      fields.classList.remove('hidden');
+    }
+  }
+</script>
+<%- include('partials/footer') %>

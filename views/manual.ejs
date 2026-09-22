@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+<div class="max-w-4xl mx-auto my-6 bg-white p-8 rounded-xl shadow-md border border-slate-200">
+  <div class="border-b pb-4 mb-6">
+    <h1 class="text-3xl font-extrabold text-slate-900" data-i18n="nav_manual">Platform User Manual & Guidelines</h1>
+    <p class="text-slate-500 text-sm mt-1">Complete step-by-step instructions for citizens, contractors, and government administrative officers.</p>
+  </div>
+
+  <div class="space-y-8 text-slate-700">
+    <section class="bg-indigo-50/50 p-5 rounded-lg border border-indigo-100">
+      <h2 class="text-xl font-bold text-indigo-900 mb-2 flex items-center">
+        <i class="fa-solid fa-users mr-2 text-indigo-600"></i> 1. Role-Based Navigation & Access
+      </h2>
+      <ul class="list-disc list-inside space-y-2 text-sm leading-relaxed">
+        <li><strong>Public (Citizens):</strong> No registration or login credentials needed. Search, browse, and track all ongoing development tenders by State, District, Taluk, and Village with full contractor transparency.</li>
+        <li><strong>Bidders (Contractors):</strong> Register with your business registration and company profile. Once authorized by officials, search open tenders, submit bids, track awarded tenders, and instantly download legally valid contract certificates.</li>
+        <li><strong>Government Officials:</strong> Administrative oversight to create new tenders, monitor active bids, approve or reject newly submitted registrations, and officially award tenders to qualified bidders.</li>
+      </ul>
+    </section>
+
+    <section class="bg-amber-50/50 p-5 rounded-lg border border-amber-100">
+      <h2 class="text-xl font-bold text-amber-900 mb-2 flex items-center">
+        <i class="fa-solid fa-user-check mr-2 text-amber-600"></i> 2. Registration and Authorization Flow
+      </h2>
+      <p class="text-sm leading-relaxed mb-2">To prevent malicious entries and unauthorized contractors:</p>
+      <ol class="list-decimal list-inside space-y-1 text-sm text-slate-700">
+        <li>Go to the <strong>Register</strong> page and fill in your company credentials.</li>
+        <li>The system sets your account status to <em>Pending Verification</em>.</li>
+        <li>A Government Official verifies the credentials via the Government Dashboard and grants approval.</li>
+        <li>Once approved, you can log in with your email and password.</li>
+      </ol>
+    </section>
+
+    <section class="bg-emerald-50/50 p-5 rounded-lg border border-emerald-100">
+      <h2 class="text-xl font-bold text-emerald-900 mb-2 flex items-center">
+        <i class="fa-solid fa-file-pdf mr-2 text-emerald-600"></i> 3. Contract Document Generation
+      </h2>
+      <p class="text-sm leading-relaxed">
+        When an official awards an active tender to your company, the project transfers to your <strong>Won / Assigned Contracts</strong> list. Click the <em>Download Contract File</em> button on the card to generate and download an official stamped PDF copy with your reference number, budget, location, and contractor details.
+      </p>
+    </section>
+
+    <section class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+      <h2 class="text-xl font-bold text-slate-800 mb-2 flex items-center">
+        <i class="fa-solid fa-language mr-2 text-slate-600"></i> 4. Multi-Language Switcher
+      </h2>
+      <p class="text-sm leading-relaxed">
+        Use the language selector located in the top navigation bar to switch the entire application interface across <strong>English, Hindi, Kannada, and Tamil</strong> instantly.
+      </p>
+    </section>
+  </div>
+</div>
+<%- include('partials/footer') %>
