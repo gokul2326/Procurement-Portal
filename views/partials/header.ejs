@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government E-Procurement Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+  <!-- Top Bar -->
+  <header class="bg-indigo-900 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand -->
+        <div class="flex items-center space-x-3">
+          <span class="p-2 bg-indigo-700 rounded-lg text-amber-400">
+            <i class="fa-solid fa-landmark text-xl"></i>
+          </span>
+          <div>
+            <a href="/" class="text-xl font-bold tracking-wide flex items-center gap-2">
+              GovProcure <span class="text-xs bg-amber-500 text-indigo-950 font-bold px-2 py-0.5 rounded uppercase">Portal</span>
+            </a>
+            <p class="text-[10px] text-indigo-200 uppercase tracking-widest hidden sm:block">National Tender Transparency Network</p>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex items-center space-x-2 sm:space-x-4">
+          <a href="/" class="px-3 py-1.5 rounded-md text-sm hover:bg-indigo-800 transition" data-i18n="nav_home">
+            <i class="fa-solid fa-globe mr-1"></i> Public Portal
+          </a>
+          <a href="/manual" class="px-3 py-1.5 rounded-md text-sm hover:bg-indigo-800 transition" data-i18n="nav_manual">
+            <i class="fa-solid fa-book-open mr-1"></i> User Manual
+          </a>
+
+          <% if (currentUser) { %>
+            <% if (currentUser.role === 'official') { %>
+              <a href="/govt/dashboard" class="px-3 py-1.5 rounded-md text-sm bg-indigo-800 hover:bg-indigo-700">
+                <i class="fa-solid fa-shield mr-1"></i> Govt Panel
+              </a>
+            <% } else { %>
+              <a href="/bidder/dashboard" class="px-3 py-1.5 rounded-md text-sm bg-indigo-800 hover:bg-indigo-700">
+                <i class="fa-solid fa-briefcase mr-1"></i> Bidder Panel
+              </a>
+            <% } %>
+            <a href="/settings" class="px-3 py-1.5 rounded-md text-sm hover:bg-indigo-800 transition" data-i18n="nav_settings">
+              <i class="fa-solid fa-gear mr-1"></i> Settings
+            </a>
+            <a href="/logout" class="px-3 py-1.5 rounded-md text-sm bg-rose-600 hover:bg-rose-700 transition">
+              <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Logout
+            </a>
+          <% } else { %>
+            <a href="/login" class="px-3 py-1.5 rounded-md text-sm bg-indigo-800 hover:bg-indigo-700 transition" data-i18n="nav_login">
+              <i class="fa-solid fa-user mr-1"></i> Login
+            </a>
+            <a href="/register" class="px-3 py-1.5 rounded-md text-sm bg-amber-500 hover:bg-amber-600 text-indigo-950 font-semibold transition" data-i18n="nav_register">
+              Register
+            </a>
+          <% } %>
+
+          <!-- Multi-language Select Dropdown -->
+          <div class="relative ml-2">
+            <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-indigo-800 text-white text-xs rounded border border-indigo-600 px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-amber-400 cursor-pointer">
+              <option value="en">English (EN)</option>
+              <option value="hi">हिंदी (HI)</option>
+              <option value="kn">ಕನ್ನಡ (KN)</option>
+              <option value="ta">தமிழ் (TA)</option>
+            </select>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Flash Messages Notifications -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <% if (typeof success !== 'undefined' && success.length > 0) { %>
+      <div class="mb-4 p-4 rounded-lg bg-emerald-50 border-l-4 border-emerald-500 text-emerald-800 flex items-center shadow-sm">
+        <i class="fa-solid fa-circle-check text-xl mr-3"></i>
+        <span><%= success %></span>
+      </div>
+    <% } %>
+
+    <% if (typeof error !== 'undefined' && error.length > 0) { %>
+      <div class="mb-4 p-4 rounded-lg bg-rose-50 border-l-4 border-rose-500 text-rose-800 flex items-center shadow-sm">
+        <i class="fa-solid fa-circle-exclamation text-xl mr-3"></i>
+        <span><%= error %></span>
+      </div>
+    <% } %>
+
+    <% if (typeof info !== 'undefined' && info.length > 0) { %>
+      <div class="mb-4 p-4 rounded-lg bg-sky-50 border-l-4 border-sky-500 text-sky-800 flex items-center shadow-sm">
+        <i class="fa-solid fa-circle-info text-xl mr-3"></i>
+        <span><%= info %></span>
+      </div>
+    <% } %>
